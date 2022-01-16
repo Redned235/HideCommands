@@ -1,0 +1,23 @@
+plugins {
+    id 'java-library'
+    id 'java'
+}
+
+group 'me.redned.geyser.extension.hidecommands'
+version '1.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    api 'org.geysermc:geyser-api:2.0.0-SNAPSHOT'
+}
+
+test {
+    useJUnitPlatform()
+}
