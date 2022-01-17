@@ -2,6 +2,7 @@ package me.redned.geyser.extension.hidecommands;
 
 import org.geysermc.geyser.api.event.Subscribe;
 import org.geysermc.geyser.api.event.downstream.ServerDefineCommandsEvent;
+import org.geysermc.geyser.api.event.lifecycle.GeyserPostInitializeEvent;
 import org.geysermc.geyser.api.extension.Extension;
 import org.yaml.snakeyaml.Yaml;
 
@@ -22,8 +23,8 @@ public class HideCommands implements Extension {
     private Set<String> commands;
 
     @SuppressWarnings("unchecked")
-    @Override
-    public void onEnable() {
+    @Subscribe
+    public void onPostInitialize(GeyserPostInitializeEvent event) {
         try {
             Path commandsPath = this.dataFolder().resolve("commands.yml");
             this.saveDefaultConfig(commandsPath);
@@ -37,7 +38,12 @@ public class HideCommands implements Extension {
         this.logger().info("Loaded " + this.commands.size() + " commands to hide!");
     }
 
-    public void saveDefaultConfig(Path commandsPath) throws IOException {
+    @Subscribe
+    public void onCommands(ServerDefineCommandsEvent event) {
+        event.commands().removeIf(command -> this.commands.contains(command.name()));
+    }
+
+    private void saveDefaultConfig(Path commandsPath) throws IOException {
         if (Files.exists(commandsPath)) {
             return;
         }
@@ -56,10 +62,5 @@ public class HideCommands implements Extension {
             this.logger().error("Failed to create commands.yml!", ex);
             this.setEnabled(false);
         }
-    }
-
-    @Subscribe
-    public void onCommands(ServerDefineCommandsEvent event) {
-        event.commands().removeIf(command -> this.commands.contains(command.name()));
     }
 }
