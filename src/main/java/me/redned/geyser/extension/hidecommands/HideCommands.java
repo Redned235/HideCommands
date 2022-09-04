@@ -1,7 +1,12 @@
 package me.redned.geyser.extension.hidecommands;
 
-import org.geysermc.geyser.api.event.Subscribe;
+import org.geysermc.event.subscribe.Subscribe;
+import org.geysermc.geyser.api.command.Command;
+import org.geysermc.geyser.api.command.CommandExecutor;
+import org.geysermc.geyser.api.command.CommandSource;
+import org.geysermc.geyser.api.connection.GeyserConnection;
 import org.geysermc.geyser.api.event.downstream.ServerDefineCommandsEvent;
+import org.geysermc.geyser.api.event.lifecycle.GeyserDefineCommandsEvent;
 import org.geysermc.geyser.api.event.lifecycle.GeyserPostInitializeEvent;
 import org.geysermc.geyser.api.extension.Extension;
 import org.yaml.snakeyaml.Yaml;
@@ -17,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 
 public class HideCommands implements Extension {
@@ -41,6 +47,18 @@ public class HideCommands implements Extension {
     @Subscribe
     public void onCommands(ServerDefineCommandsEvent event) {
         event.commands().removeIf(command -> this.commands.contains(command.name()));
+    }
+
+    @Subscribe
+    public void onCommandDefine(GeyserDefineCommandsEvent event) {
+        event.register(Command.builder(this)
+                .source(CommandSource.class)
+                .name("hiddencommands")
+                .description("Shows all the hidden commands.")
+                .permission("hidecommands.hiddencommands")
+                .subCommands(List.of("hiddencommands"))
+                .executor((source, command, args) -> source.sendMessage("Hidden commands: " + String.join(", ", this.commands)))
+                .build());
     }
 
     private void saveDefaultConfig(Path commandsPath) throws IOException {
