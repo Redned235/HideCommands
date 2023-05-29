@@ -27,7 +27,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
-    api 'org.geysermc.geyser:api:2.1.0-SNAPSHOT'
+    compileOnly 'org.geysermc.geyser:api:2.1.0-SNAPSHOT'
     compileOnly 'org.yaml:snakeyaml:1.30'
 }
 

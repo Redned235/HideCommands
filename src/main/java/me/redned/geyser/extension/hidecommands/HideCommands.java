@@ -3,6 +3,7 @@ package me.redned.geyser.extension.hidecommands;
 import org.geysermc.event.subscribe.Subscribe;
 import org.geysermc.geyser.api.command.Command;
 import org.geysermc.geyser.api.command.CommandSource;
+import org.geysermc.geyser.api.event.java.ServerDefineCommandsEvent;
 import org.geysermc.geyser.api.event.lifecycle.GeyserDefineCommandsEvent;
 import org.geysermc.geyser.api.event.lifecycle.GeyserPostInitializeEvent;
 import org.geysermc.geyser.api.extension.Extension;
@@ -42,8 +43,8 @@ public class HideCommands implements Extension {
     }
 
     @Subscribe
-    public void onCommands(GeyserDefineCommandsEvent event) {
-        event.commands().entrySet().removeIf(command -> this.commands.contains(command.getValue().name()));
+    public void onCommands(ServerDefineCommandsEvent event) {
+        event.commands().removeIf(command -> this.commands.contains(command.name()));
     }
 
     @Subscribe
