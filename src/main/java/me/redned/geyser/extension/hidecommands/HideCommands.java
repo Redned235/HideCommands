@@ -2,10 +2,8 @@ package me.redned.geyser.extension.hidecommands;
 
 import org.geysermc.event.subscribe.Subscribe;
 import org.geysermc.geyser.api.command.Command;
-import org.geysermc.geyser.api.command.CommandExecutor;
 import org.geysermc.geyser.api.command.CommandSource;
-import org.geysermc.geyser.api.connection.GeyserConnection;
-import org.geysermc.geyser.api.event.downstream.ServerDefineCommandsEvent;
+import org.geysermc.geyser.api.event.java.ServerDefineCommandsEvent;
 import org.geysermc.geyser.api.event.lifecycle.GeyserDefineCommandsEvent;
 import org.geysermc.geyser.api.event.lifecycle.GeyserPostInitializeEvent;
 import org.geysermc.geyser.api.extension.Extension;
