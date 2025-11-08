@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: gradle
+      - name: Build with Gradle
+        run: ./gradlew build
+      - name: Publish to Modrinth
+        if: ${{ success() && github.repository == 'Redned235/HideCommands' && github.ref_name == 'master' }}
+        env:
+          CHANGELOG: ${{ github.event.head_commit.message }}
+          BUILD_NUMBER: ${{ github.run_number }}
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: ./gradlew modrinth

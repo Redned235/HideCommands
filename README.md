@@ -2,4 +2,4 @@
 A Geyser extension that hides commands.
 
 ## Download
-- Download the latest release from [GitHub Releases](https://github.com/Redned235/HideCommands/releases/tag/latest)
+- Download the latest release from [Modrinth](https://modrinth.com/project/hidecommands)

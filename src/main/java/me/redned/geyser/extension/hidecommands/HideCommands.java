@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Set;
 
 public class HideCommands implements Extension {
@@ -54,7 +53,6 @@ public class HideCommands implements Extension {
                 .name("hiddencommands")
                 .description("Shows all the hidden commands.")
                 .permission("hidecommands.hiddencommands")
-                .subCommands(List.of("hiddencommands"))
                 .executor((source, command, args) -> source.sendMessage("Hidden commands: " + String.join(", ", this.commands)))
                 .build());
     }
